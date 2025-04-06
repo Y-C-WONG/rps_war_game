@@ -52,7 +52,7 @@ body {
 
 #player1-territory {
     background-color: #e6f2ff;
- /*   transform: rotate(180deg); */
+    transform: rotate(180deg);
 }
 
 #player2-territory {
@@ -446,7 +446,7 @@ body {
     }
     
     #player1-territory {
-  /*      transform: rotate(180deg);  */ /* 保持旋轉 */
+        transform: rotate(180deg); /* 保持旋轉 */
     }
     
     .status-text {
