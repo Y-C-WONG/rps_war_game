@@ -1,0 +1,382 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+body {
+    font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+    overflow: hidden;
+    background-color: #f0f7ff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.player-territory {
+    flex: 1;
+    position: relative;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.player-territory.disabled {
+    opacity: 0.7;
+}
+
+#player1-territory {
+    background-color: #e6f2ff;
+    transform: rotate(180deg);
+}
+
+#player2-territory {
+    background-color: #fff0e6;
+}
+
+.game-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+}
+
+.rps-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.rps-button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: visible;
+}
+
+.rps-button:hover, .rps-button:active {
+    transform: scale(1.1);
+    background-color: #2a70c2;
+}
+
+/* 添加點擊波紋效果 */
+.rps-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.rps-button:active::after {
+    animation: ripple 0.4s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0) translate(-50%, -50%);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20) translate(-50%, -50%);
+        opacity: 0;
+    }
+}
+
+.build-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.build-button {
+    background-color: #50c878;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.build-button:hover, .build-button:active {
+    transform: scale(1.05);
+    background-color: #30a858;
+}
+
+.build-button.disabled {
+    background-color: #a0a0a0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.build-button.disabled:hover {
+    transform: none;
+    background-color: #a0a0a0;
+}
+
+.attack-button {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.attack-button:hover, .attack-button:active {
+    transform: scale(1.05);
+    background-color: #e04b4b;
+}
+
+.fortress {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    background-color: #888;
+    padding: 3px;
+    border-radius: 10px;
+}
+
+.fortress-cell {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.fortress-cell.destroyed {
+    background-color: #ffcccc;
+    color: #ff6b6b;
+    text-decoration: line-through;
+}
+
+.flags-container {
+    position: absolute;
+    bottom: 135px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-around;
+    width: 140px;
+}
+
+.flag {
+    width: 30px;
+    height: 45px;
+    background-color: transparent;
+}
+
+.flag-pole {
+    width: 4px;
+    height: 40px;
+    background-color: #555;
+    margin: 0 auto;
+}
+
+.flag-canvas {
+    width: 25px;
+    height: 20px;
+    background-color: #f44336;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    margin-left: 4px;
+    -webkit-animation: wave 2s infinite alternate ease-in-out;
+    animation: wave 2s infinite alternate ease-in-out;
+}
+
+@keyframes wave {
+    0% { transform: skewX(-5deg); }
+    100% { transform: skewX(5deg); }
+}
+
+/* 修改保護罩為半圓線條 - 調整位置和尺寸以覆蓋旗幟和堡壘 */
+.shield {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 5;
+    /* 使用邊框創建半圓線條 */
+    background-color: transparent;
+    border-style: solid;
+    border-color: rgba(30, 144, 255, 0.6);
+    border-bottom: none;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* 修改保護罩層級，從小到大遞增，並確保覆蓋範圍足夠 */
+.shield.layer-1 { 
+    width: 160px; 
+    height: 140px;
+    bottom: 5px;
+    border-width: 2px;
+}
+.shield.layer-2 { 
+    width: 180px; 
+    height: 150px;
+    bottom: 5px;
+    border-width: 2px;
+}
+.shield.layer-3 { 
+    width: 200px; 
+    height: 160px;
+    bottom: 5px;
+    border-width: 2px;
+}
+.shield.layer-4 { 
+    width: 220px; 
+    height: 170px;
+    bottom: 5px;
+    border-width: 3px;
+}
+.shield.layer-5 { 
+    width: 240px; 
+    height: 180px;
+    bottom: 5px;
+    border-width: 3px;
+}
+
+.unit {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.3s ease;
+}
+
+/* 更新戰機和大炮的SVG圖示 - 使用本地資源路徑 */
+.aircraft {
+    background-image: url('assets/rps-aircraft.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.cannon {
+    background-image: url('assets/rps-cannon.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.status-text {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.explosion {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'%3E%3Cpath d='M11.4,2.5l2.1,5.9l5.7-2.8l-1.6,6.4l6.4,1.6l-4.8,4.8l2.8,5.7l-5.9-2.1L12,22l-3.9-4.4L2.6,19.5l2.8-5.7L0.2,9l6.4-1.6L5,1.1l5.7,2.8Z'/%3E%3C/svg%3E");
+    background-size: contain;
+    z-index: 100;
+    animation: explode 0.5s forwards;
+}
+
+@keyframes explode {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.5); }
+    100% { opacity: 0; transform: scale(2); }
+}
+
+.game-over {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.restart-button {
+    margin-top: 30px;
+    padding: 15px 30px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.restart-button:hover, .restart-button:active {
+    transform: scale(1.05);
+    background-color: #2a70c2;
+}
