@@ -324,11 +324,11 @@ body {
 
 /* 更新戰機和大炮的SVG圖示 - 使用本地資源路徑 */
 .aircraft {
-    background-image: url('/assets/rps-aircraft.svg');
+    background-image: url('assets/rps-aircraft.svg');
 }
 
 .cannon {
-    background-image: url('/assets/rps-cannon.svg');
+    background-image: url('assets/rps-cannon.svg');
 }
 
 .status-text {
@@ -446,14 +446,7 @@ body {
     }
     
     #player1-territory {
-        transform: none; /* 不旋轉，使兩個區域都朝向相同方向 */
-    }
-    
-    /* 調整玩家2區域，使其元素顯示正確方向 */
-    #player2-territory .fortress-cell,
-    #player2-territory .flag,
-    #player2-territory .unit {
-        transform: rotate(180deg);
+        transform: rotate(180deg); /* 保持旋轉 */
     }
     
     .status-text {
@@ -463,7 +456,7 @@ body {
 }
 
 @media (orientation: landscape) {
-    /* 橫屏模式保持原來的布局，但可能需要調整大小 */
+    /* 橫屏模式使用原始布局，但可能需要調整大小 */
     :root {
         --fortress-size: min(100px, 15vh);
         --button-size: min(50px, 10vh);
@@ -481,4 +474,18 @@ body {
     .build-container {
         gap: var(--spacing-medium);
     }
+}
+
+/* 方向提示訊息樣式 */
+#orientation-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 1000;
+    font-size: var(--font-size-medium);
 }
