@@ -67,9 +67,3 @@ Y-C-WONG
 
 歡迎提交 Pull Requests 和 Issues！
 (Pull Requests and Issues are welcome!)
-
-## 未來計劃 (Future Plans)
-
-- 添加網絡對戰功能
-- 優化遊戲平衡性
-- 增加更多特殊能力
