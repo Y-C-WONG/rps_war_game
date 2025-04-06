@@ -7,6 +7,22 @@
     user-select: none;
 }
 
+:root {
+    /* 定義通用變量，以便輕鬆調整 */
+    --fortress-size: min(120px, 25vw);
+    --button-size: min(60px, 15vw);
+    --unit-size: min(40px, 12vw);
+    --border-radius-small: 0.5rem;
+    --border-radius-medium: 1rem;
+    --border-radius-large: 1.5rem;
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 1.5rem;
+    --font-size-small: max(12px, 0.9rem);
+    --font-size-medium: max(16px, 1.1rem);
+    --font-size-large: max(18px, 1.25rem);
+}
+
 body {
     font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
     overflow: hidden;
@@ -26,7 +42,7 @@ body {
 .player-territory {
     flex: 1;
     position: relative;
-    padding: 10px;
+    padding: min(10px, 2vw);
     transition: all 0.3s ease;
 }
 
@@ -54,18 +70,18 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 15px;
+    border-radius: var(--border-radius-large);
+    padding: var(--spacing-large);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 400px;
+    width: min(90%, 400px);
+    max-width: 90vw;
 }
 
 .rps-container {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    margin: 15px 0;
+    margin: var(--spacing-large) 0;
 }
 
 .rps-button {
@@ -73,9 +89,9 @@ body {
     color: white;
     border: none;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
+    width: var(--button-size);
+    height: var(--button-size);
+    font-size: min(24px, 6vw);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -125,17 +141,17 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
-    margin: 10px 0;
+    gap: var(--spacing-medium);
+    margin: var(--spacing-medium) 0;
 }
 
 .build-button {
     background-color: #50c878;
     color: white;
     border: none;
-    border-radius: 15px;
-    padding: 10px 15px;
-    font-size: 16px;
+    border-radius: var(--border-radius-medium);
+    padding: min(10px, 2.5vw) min(15px, 3.5vw);
+    font-size: var(--font-size-medium);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -161,9 +177,9 @@ body {
     background-color: #ff6b6b;
     color: white;
     border: none;
-    border-radius: 15px;
-    padding: 10px 15px;
-    font-size: 16px;
+    border-radius: var(--border-radius-medium);
+    padding: min(10px, 2.5vw) min(15px, 3.5vw);
+    font-size: var(--font-size-medium);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -176,18 +192,18 @@ body {
 
 .fortress {
     position: absolute;
-    bottom: 10px;
+    bottom: min(10px, 3vh);
     left: 50%;
     transform: translateX(-50%);
-    width: 120px;
-    height: 120px;
+    width: var(--fortress-size);
+    height: var(--fortress-size);
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     gap: 3px;
     background-color: #888;
     padding: 3px;
-    border-radius: 10px;
+    border-radius: var(--border-radius-small);
 }
 
 .fortress-cell {
@@ -195,9 +211,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: max(16px, calc(var(--fortress-size) / 5));
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: calc(var(--border-radius-small) / 2);
     transition: all 0.3s ease;
 }
 
@@ -209,34 +225,34 @@ body {
 
 .flags-container {
     position: absolute;
-    bottom: 135px;
+    bottom: calc(var(--fortress-size) + min(15px, 4vh));
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     justify-content: space-around;
-    width: 140px;
+    width: calc(var(--fortress-size) * 1.2);
 }
 
 .flag {
-    width: 30px;
-    height: 45px;
+    width: min(30px, 8vw);
+    height: min(45px, 12vw);
     background-color: transparent;
 }
 
 .flag-pole {
-    width: 4px;
-    height: 40px;
+    width: min(4px, 1vw);
+    height: min(40px, 10vw);
     background-color: #555;
     margin: 0 auto;
 }
 
 .flag-canvas {
-    width: 25px;
-    height: 20px;
+    width: min(25px, 6vw);
+    height: min(20px, 5vw);
     background-color: #f44336;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
     clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
-    margin-left: 4px;
+    margin-left: min(4px, 1vw);
     -webkit-animation: wave 2s infinite alternate ease-in-out;
     animation: wave 2s infinite alternate ease-in-out;
 }
@@ -246,7 +262,7 @@ body {
     100% { transform: skewX(5deg); }
 }
 
-/* 修改保護罩為半圓線條 - 調整位置和尺寸以覆蓋旗幟和堡壘 */
+/* 修改保護罩為半圓線條 - 調整位置和尺寸以覆蓋範圍足夠 */
 .shield {
     position: absolute;
     left: 50%;
@@ -266,40 +282,40 @@ body {
 
 /* 修改保護罩層級，從小到大遞增，並確保覆蓋範圍足夠 */
 .shield.layer-1 { 
-    width: 160px; 
-    height: 140px;
+    width: calc(var(--fortress-size) * 1.3); 
+    height: calc(var(--fortress-size) * 1.2);
     bottom: 5px;
-    border-width: 2px;
+    border-width: min(2px, 0.5vw);
 }
 .shield.layer-2 { 
-    width: 180px; 
-    height: 150px;
+    width: calc(var(--fortress-size) * 1.5); 
+    height: calc(var(--fortress-size) * 1.3);
     bottom: 5px;
-    border-width: 2px;
+    border-width: min(2px, 0.5vw);
 }
 .shield.layer-3 { 
-    width: 200px; 
-    height: 160px;
+    width: calc(var(--fortress-size) * 1.7); 
+    height: calc(var(--fortress-size) * 1.4);
     bottom: 5px;
-    border-width: 2px;
+    border-width: min(2px, 0.5vw);
 }
 .shield.layer-4 { 
-    width: 220px; 
-    height: 170px;
+    width: calc(var(--fortress-size) * 1.9); 
+    height: calc(var(--fortress-size) * 1.5);
     bottom: 5px;
-    border-width: 3px;
+    border-width: min(3px, 0.7vw);
 }
 .shield.layer-5 { 
-    width: 240px; 
-    height: 180px;
+    width: calc(var(--fortress-size) * 2.1); 
+    height: calc(var(--fortress-size) * 1.6);
     bottom: 5px;
-    border-width: 3px;
+    border-width: min(3px, 0.7vw);
 }
 
 .unit {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: var(--unit-size);
+    height: var(--unit-size);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -308,31 +324,25 @@ body {
 
 /* 更新戰機和大炮的SVG圖示 - 使用本地資源路徑 */
 .aircraft {
-    background-image: url('assets/rps-aircraft.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url('/assets/rps-aircraft.svg');
 }
 
 .cannon {
-    background-image: url('assets/rps-cannon.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url('/assets/rps-cannon.svg');
 }
 
 .status-text {
     text-align: center;
-    margin-bottom: 10px;
-    font-size: 18px;
+    margin-bottom: var(--spacing-medium);
+    font-size: var(--font-size-large);
     font-weight: bold;
     color: #333;
 }
 
 .explosion {
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: min(50px, 15vw);
+    height: min(50px, 15vw);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff9800'%3E%3Cpath d='M11.4,2.5l2.1,5.9l5.7-2.8l-1.6,6.4l6.4,1.6l-4.8,4.8l2.8,5.7l-5.9-2.1L12,22l-3.9-4.4L2.6,19.5l2.8-5.7L0.2,9l6.4-1.6L5,1.1l5.7,2.8Z'/%3E%3C/svg%3E");
     background-size: contain;
     z-index: 100;
@@ -358,19 +368,19 @@ body {
     justify-content: center;
     z-index: 200;
     color: white;
-    font-size: 36px;
+    font-size: min(36px, 8vw);
     font-weight: bold;
     text-align: center;
 }
 
 .restart-button {
-    margin-top: 30px;
-    padding: 15px 30px;
+    margin-top: var(--spacing-large);
+    padding: min(15px, 3vw) min(30px, 6vw);
     background-color: #4a90e2;
     color: white;
     border: none;
-    border-radius: 15px;
-    font-size: 20px;
+    border-radius: var(--border-radius-medium);
+    font-size: min(20px, 5vw);
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
@@ -379,4 +389,96 @@ body {
 .restart-button:hover, .restart-button:active {
     transform: scale(1.05);
     background-color: #2a70c2;
+}
+
+/* 添加媒體查詢，為不同裝置優化布局 */
+@media (max-width: 576px) {
+    /* 手機設備優化 */
+    :root {
+        --fortress-size: 80px;
+        --button-size: 50px;
+        --unit-size: 30px;
+        --font-size-small: 10px;
+        --font-size-medium: 14px;
+        --font-size-large: 16px;
+    }
+    
+    .game-center {
+        width: 85%;
+        padding: 10px;
+    }
+    
+    .build-container {
+        gap: 6px;
+    }
+    
+    .build-button, .attack-button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 992px) {
+    /* 平板設備優化 */
+    :root {
+        --fortress-size: 100px;
+        --button-size: 55px;
+        --unit-size: 35px;
+    }
+    
+    .game-center {
+        width: 80%;
+    }
+}
+
+@media (min-height: 740px) {
+    /* 對於高度較大的螢幕，調整單位位置 */
+    .unit {
+        top: 30vh !important; /* 覆蓋內聯樣式 */
+    }
+}
+
+/* 橫屏與豎屏特定優化 */
+@media (orientation: portrait) {
+    /* 豎屏模式 */
+    .player-territory {
+        height: 45vh; /* 給予更多垂直空間 */
+    }
+    
+    #player1-territory {
+        transform: none; /* 不旋轉，使兩個區域都朝向相同方向 */
+    }
+    
+    /* 調整玩家2區域，使其元素顯示正確方向 */
+    #player2-territory .fortress-cell,
+    #player2-territory .flag,
+    #player2-territory .unit {
+        transform: rotate(180deg);
+    }
+    
+    .status-text {
+        max-width: 90vw;
+        overflow-wrap: break-word;
+    }
+}
+
+@media (orientation: landscape) {
+    /* 橫屏模式保持原來的布局，但可能需要調整大小 */
+    :root {
+        --fortress-size: min(100px, 15vh);
+        --button-size: min(50px, 10vh);
+    }
+}
+
+/* 觸摸優化 - 增加觸摸目標區域 */
+@media (hover: none) and (pointer: coarse) {
+    /* 觸摸設備 */
+    .rps-button, .build-button, .attack-button {
+        min-height: 44px; /* 蘋果推薦的最小觸摸目標高度 */
+        min-width: 44px;  /* 蘋果推薦的最小觸摸目標寬度 */
+    }
+    
+    .build-container {
+        gap: var(--spacing-medium);
+    }
 }

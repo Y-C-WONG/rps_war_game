@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f0f7ff">
     <title>天下太平猜拳戰略遊戲</title>
     <link rel="stylesheet" href="style.css">
+    <!-- 添加網頁圖標 -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <!-- 添加 Apple 設備的啟動畫面設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 </head>
 <body ontouchstart="">
     <div class="game-container" id="game-container">
@@ -43,5 +50,50 @@
     <script src="scripts/rps-manager.js"></script>
     <script src="scripts/game-manager.js"></script>
     <script src="scripts/main.js"></script>
+    
+    <!-- 螢幕方向檢測和提示 -->
+    <script>
+        // 監聽方向變化
+        window.addEventListener('resize', checkOrientation);
+        
+        function checkOrientation() {
+            const orientationBox = document.getElementById('orientation-message');
+            
+            // 僅在手機上處理方向提示
+            if (window.innerWidth < 576 && window.innerHeight > window.innerWidth) {
+                // 如果沒有提示框，創建一個
+                if (!orientationBox) {
+                    const messageBox = document.createElement('div');
+                    messageBox.id = 'orientation-message';
+                    messageBox.style.position = 'fixed';
+                    messageBox.style.top = '0';
+                    messageBox.style.left = '0';
+                    messageBox.style.width = '100%';
+                    messageBox.style.background = 'rgba(0,0,0,0.8)';
+                    messageBox.style.color = 'white';
+                    messageBox.style.padding = '10px';
+                    messageBox.style.textAlign = 'center';
+                    messageBox.style.zIndex = '1000';
+                    messageBox.innerHTML = '旋轉手機獲得更好的遊戲體驗';
+                    
+                    document.body.appendChild(messageBox);
+                    
+                    // 3秒後自動消失
+                    setTimeout(() => {
+                        const box = document.getElementById('orientation-message');
+                        if (box) box.style.display = 'none';
+                    }, 3000);
+                }
+            } else {
+                // 如果是橫屏，移除提示框
+                if (orientationBox) {
+                    orientationBox.style.display = 'none';
+                }
+            }
+        }
+        
+        // 頁面加載後檢查
+        document.addEventListener('DOMContentLoaded', checkOrientation);
+    </script>
 </body>
 </html>
